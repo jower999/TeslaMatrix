@@ -92,6 +92,7 @@ FunctionsToExport = @(
     'Get-VehicleConfig',
     'Get-VehicleData',
     'Get-Vehicles',
+    'Get-Vehicle',
     'Get-VehicleState',
     'Invoke-FlashLights',
     'Invoke-Frunk',
