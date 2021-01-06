@@ -10,9 +10,9 @@ on:
     inputs:
       name:
         # Friendly description to be shown in the UI instead of 'name'
-        description: 'Person to greet'
+        description: 'Platform to run on'
         # Default value if no value is explicitly provided
-        default: 'World'
+        default: 'ubuntu-latest'
         # Input has to be provided for the workflow to run
         required: true
 
@@ -26,6 +26,6 @@ jobs:
         uses: pcgeek86/publish-powershell-module-action@v19
         id: publish-module
         with:
-          modulePath: TeslaMatrix
+          modulePath: ./TeslaMatrix
           NuGetApiKey: ${{ secrets.PS_GALLERY_KEY }} 
       
