@@ -167,6 +167,7 @@ function Invoke-Wakeup
     param (
         [Parameter(Mandatory=$false, ValueFromPipelineByPropertyName=$true)]
         [int64]$id=$(Get-SelectedVehicleId),
+        [Alias("pt")]
         [switch]$PassThru
     )
     Invoke-TeslaAPI -Method Post -Uri "api/1/vehicles/{0}/wake_up" -id $id -PassThru:$PassThru
@@ -178,6 +179,7 @@ function Invoke-HonkHorn
     param (
         [Parameter(Mandatory=$false, ValueFromPipelineByPropertyName=$true)]
         [int64]$id=$(Get-SelectedVehicleId).
+        [Alias("pt")]
         [switch]$PassThru
     )
     Invoke-TeslaAPI -Method Post -Uri "api/1/vehicles/{0}/command/honk_horn" -id $id -PassThru:$PassThru
@@ -189,6 +191,7 @@ function Invoke-FlashLights
     param (
         [Parameter(Mandatory=$false, ValueFromPipelineByPropertyName=$true)]
         [int64]$id=$(Get-SelectedVehicleId),
+        [Alias("pt")]
         [switch]$PassThru
     )
     Invoke-TeslaAPI -Method Post -Uri "api/1/vehicles/{0}/command/flash_lights" -id $id -PassThru:$PassThru
@@ -201,6 +204,7 @@ function Invoke-RemoteStartDrive
         [Parameter(Mandatory=$false, ValueFromPipelineByPropertyName=$true)]
         [int64]$id=$(Get-SelectedVehicleId),
         [securestring]$password=($script:Credential.Password),
+        [Alias("pt")]
         [switch]$PassThru
     )
     Invoke-TeslaAPI -Method Post -Uri "api/1/vehicles/{0}/command/remote_start_drive" -id $id -body @{password=(ConvertFrom-SecureString -SecureString $password)} -PassThru:$PassThru
@@ -214,6 +218,7 @@ function Set-SpeedLimit
         [int64]$id=$(Get-SelectedVehicleId),
         [Parameter(Mandatory=$true)]
         $speedLimit,
+        [Alias("pt")]
         [switch]$PassThru
     )
     $speedLimitMph = ([math]::Round((ConvertFrom-Kilometers $speedLimit)))
@@ -229,6 +234,7 @@ function Enable-SpeedLimit
         [int64]$id=$(Get-SelectedVehicleId),
         [Parameter(Mandatory=$true)]
         [int]$pincode,
+        [Alias("pt")]
         [switch]$PassThru
     )
     Invoke-TeslaAPI -Method Post -Uri "api/1/vehicles/{0}/command/speed_limit_activate" -id $id -body @{pin=$pincode} -PassThru:$PassThru
@@ -242,6 +248,7 @@ function Disable-SpeedLimit
         [int64]$id=$(Get-SelectedVehicleId),
         [Parameter(Mandatory=$true)]
         [int]$pincode,
+        [Alias("pt")]
         [switch]$PassThru
     )
     Invoke-TeslaAPI -Method Post -Uri "api/1/vehicles/{0}/command/speed_limit_deactivate" -id $id -body @{pin=$pincode} -PassThru:$PassThru
@@ -255,6 +262,7 @@ function Clear-SpeedLimitPin
         [int64]$id=$(Get-SelectedVehicleId),
         [Parameter(Mandatory=$true)]
         [int]$pincode,
+        [Alias("pt")]
         [switch]$PassThru
     )
     Invoke-TeslaAPI -Method Post -Uri "api/1/vehicles/{0}/command/speed_limit_clear_pin" -id $id -body @{pin=$pincode} -PassThru:$PassThru
@@ -268,6 +276,7 @@ function Enable-ValetMode
         [int64]$id=$(Get-SelectedVehicleId),
         [Parameter(Mandatory=$true)]
         [securestring]$password,
+        [Alias("pt")]
         [switch]$PassThru
     )
     Invoke-TeslaAPI -Method Post -Uri "api/1/vehicles/{0}/command/set_valet_mode" -id $id -body @{on='true';password=(ConvertFrom-SecureString $password)} -PassThru:$PassThru
@@ -281,6 +290,7 @@ function Disable-ValetMode
         [int64]$id=$(Get-SelectedVehicleId),
         [Parameter(Mandatory=$true)]
         [securestring]$password,
+        [Alias("pt")]
         [switch]$PassThru
     )
     Invoke-TeslaAPI -Method Post -Uri "api/1/vehicles/{0}/command/set_valet_mode" -id $id -body @{on='false';password=(ConvertFrom-SecureString $password)} -PassThru:$PassThru
@@ -292,6 +302,7 @@ function Reset-ValetPassword
     param (
         [Parameter(Mandatory=$false, ValueFromPipelineByPropertyName=$true)]
         [int64]$id=$(Get-SelectedVehicleId),
+        [Alias("pt")]
         [switch]$PassThru
     )
     Invoke-TeslaAPI -Method Post -Uri "api/1/vehicles/{0}/command/reset_valet_pin" -id $id -PassThru:$PassThru
@@ -303,6 +314,7 @@ function Enable-SentryMode
     param (
         [Parameter(Mandatory=$false, ValueFromPipelineByPropertyName=$true)]
         [int64]$id=$(Get-SelectedVehicleId),
+        [Alias("pt")]
         [switch]$PassThru
     )
     Invoke-TeslaAPI -Method Post -Uri "api/1/vehicles/{0}/command/set_sentry_mode" -id $id -body @{on='true'} -PassThru:$PassThru
@@ -314,6 +326,7 @@ function Disable-SentryMode
     param (
         [Parameter(Mandatory=$false, ValueFromPipelineByPropertyName=$true)]
         [int64]$id=$(Get-SelectedVehicleId),
+        [Alias("pt")]
         [switch]$PassThru
     )
     Invoke-TeslaAPI -Method Post -Uri "api/1/vehicles/{0}/command/set_sentry_mode" -id $id -body @{on='false'} -PassThru:$PassThru
@@ -325,6 +338,7 @@ function Invoke-Trunk
     param (
         [Parameter(Mandatory=$false, ValueFromPipelineByPropertyName=$true)]
         [int64]$id=$(Get-SelectedVehicleId),
+        [Alias("pt")]
         [switch]$PassThru
     )
     Invoke-TeslaAPI -Method Post -Uri "api/1/vehicles/{0}/command/actuate_trunk" -id $id -body @{which_trunk='rear'} -PassThru:$PassThru
@@ -336,6 +350,7 @@ function Invoke-Frunk
     param (
         [Parameter(Mandatory=$false, ValueFromPipelineByPropertyName=$true)]
         [int64]$id=$(Get-SelectedVehicleId),
+        [Alias("pt")]
         [switch]$PassThru
     )
     Invoke-TeslaAPI -Method Post -Uri "api/1/vehicles/{0}/command/actuate_trunk" -id $id -body @{which_trunk='front'} -PassThru:$PassThru
@@ -347,6 +362,7 @@ function Open-Windows
     param (
         [Parameter(Mandatory=$false, ValueFromPipelineByPropertyName=$true)]
         [int64]$id=$(Get-SelectedVehicleId),
+        [Alias("pt")]
         [switch]$PassThru
     )
     # TODO, fetch current location and send that too
@@ -361,6 +377,7 @@ function Close-Windows
         [int64]$id=$(Get-SelectedVehicleId),
         $latitude,
         $longitude,
+        [Alias("pt")]
         [switch]$PassThru
     )
     # TODO, fetch current location and send that too
@@ -373,6 +390,7 @@ function Open-ChargePort
     param (
         [Parameter(Mandatory=$false, ValueFromPipelineByPropertyName=$true)]
         [int64]$id=$(Get-SelectedVehicleId),
+        [Alias("pt")]
         [switch]$PassThru
     )
     Invoke-TeslaAPI -Method Post -Uri "api/1/vehicles/{0}/command/charge_port_door_open" -id $id -PassThru:$PassThru
@@ -384,6 +402,7 @@ function Close-ChargePort
     param (
         [Parameter(Mandatory=$false, ValueFromPipelineByPropertyName=$true)]
         [int64]$id=$(Get-SelectedVehicleId),
+        [Alias("pt")]
         [switch]$PassThru
     )
     Invoke-TeslaAPI -Method Post -Uri "api/1/vehicles/{0}/command/charge_port_door_close" -id $id -PassThru:$PassThru
@@ -395,6 +414,7 @@ function Start-Charging
     param (
         [Parameter(Mandatory=$false, ValueFromPipelineByPropertyName=$true)]
         [int64]$id=$(Get-SelectedVehicleId),
+        [Alias("pt")]
         [switch]$PassThru
     )
     Invoke-TeslaAPI -Method Post -Uri "api/1/vehicles/{0}/command/charge_start" -id $id -PassThru:$PassThru
@@ -406,6 +426,7 @@ function Stop-Charging
     param (
         [Parameter(Mandatory=$false, ValueFromPipelineByPropertyName=$true)]
         [int64]$id=$(Get-SelectedVehicleId),
+        [Alias("pt")]
         [switch]$PassThru
     )
     Invoke-TeslaAPI -Method Post -Uri "api/1/vehicles/{0}/command/charge_start" -id $id  -PassThru:$PassThru
@@ -417,6 +438,7 @@ function Set-ChargeStandard
     param (
         [Parameter(Mandatory=$false, ValueFromPipelineByPropertyName=$true)]
         [int64]$id=$(Get-SelectedVehicleId),
+        [Alias("pt")]
         [switch]$PassThru
     )
     Invoke-TeslaAPI -Method Post -Uri "api/1/vehicles/{0}/command/charge_standard" -id $id -PassThru:$PassThru
@@ -428,6 +450,7 @@ function Set-ChargeMaxRange
     param (
         [Parameter(Mandatory=$false, ValueFromPipelineByPropertyName=$true)]
         [int64]$id=$(Get-SelectedVehicleId),
+        [Alias("pt")]
         [switch]$PassThru
     )
     Invoke-TeslaAPI -Method Post -Uri "api/1/vehicles/{0}/command/charge_max_range" -id $id -PassThru:$PassThru
@@ -441,6 +464,7 @@ function Set-ChargeLimit
         [int64]$id=$(Get-SelectedVehicleId),
         [Parameter(Mandatory=$true)]
         [int]$percent,
+        [Alias("pt")]
         [switch]$PassThru
     )
     Invoke-TeslaAPI -Method Post -Uri "api/1/vehicles/{0}/command/set_charge_limit" -id $id -body $[percent=$percent] -PassThru:$PassThru
@@ -452,6 +476,7 @@ function Start-AutoConditioning
     param (
         [Parameter(Mandatory=$false, ValueFromPipelineByPropertyName=$true)]
         [int64]$id=$(Get-SelectedVehicleId),
+        [Alias("pt")]
         [switch]$PassThru
     )
     Invoke-TeslaAPI -Method Post -Uri "api/1/vehicles/{0}/command/auto_conditioning_start" -id $id -PassThru:$PassThru
@@ -463,6 +488,7 @@ function Stop-AutoConditioning
     param (
         [Parameter(Mandatory=$false, ValueFromPipelineByPropertyName=$true)]
         [int64]$id=$(Get-SelectedVehicleId),
+        [Alias("pt")]
         [switch]$PassThru
     )
     Invoke-TeslaAPI -Method Post -Uri "api/1/vehicles/{0}/command/auto_conditioning_stop" -id $id -PassThru:$PassThru
@@ -478,6 +504,7 @@ function Set-Temperature
         [string]$driverSideTempCelsius,
         [Parameter(Mandatory=$false)]
         [string]$passengerSideTempCelcius=$driverSideTempCelsius,
+        [Alias("pt")]
         [switch]$PassThru
     )
     Invoke-TeslaAPI -Method Post -Uri "api/1/vehicles/{0}/command/set_temps" -id $id -body @{driver_temp=$driverSideTempCelsius;passenger_temp=$passengerSideTempCelcius} -PassThru:$PassThru
@@ -489,6 +516,7 @@ function Start-PreConditioningMaxDefrost
     param (
         [Parameter(Mandatory=$false, ValueFromPipelineByPropertyName=$true)]
         [int64]$id=$(Get-SelectedVehicleId),
+        [Alias("pt")]
         [switch]$PassThru
     )
     Invoke-TeslaAPI -Method Post -Uri "api/1/vehicles/{0}/command/set_preconditioning_max" -id $id -body @{on='true'} -PassThru:$PassThru
@@ -500,6 +528,7 @@ function Stop-PreConditioningMaxDefrost
     param (
         [Parameter(Mandatory=$false, ValueFromPipelineByPropertyName=$true)]
         [int64]$id=$(Get-SelectedVehicleId),
+        [Alias("pt")]
         [switch]$PassThru
     )
     Invoke-TeslaAPI -Method Post -Uri "api/1/vehicles/{0}/command/set_preconditioning_max" -id $id -body @{on='false'} -PassThru:$PassThru
@@ -517,6 +546,7 @@ function Set-SeatHeaterLevel
         [Parameter(Mandatory=$true)]
         [ValidateSet("Low", "MediumLow", "MediumHigh", "High")]
         $level,
+        [Alias("pt")]
         [switch]$PassThru
     )
     $intHeater = $script:HeaterNames.$heater
@@ -531,6 +561,7 @@ function Start-SteeringWheelHeater
     param (
         [Parameter(Mandatory=$false, ValueFromPipelineByPropertyName=$true)]
         [int64]$id=$(Get-SelectedVehicleId),
+        [Alias("pt")]
         [switch]$PassThru
     )
     Invoke-TeslaAPI -Method Post -Uri "api/1/vehicles/{0}/command/remote_steering_wheel_heater_request" -id $id -body @{on='true'} -PassThru:$PassThru
@@ -542,6 +573,7 @@ function Stop-SteeringWheelHeater
     param (
         [Parameter(Mandatory=$false, ValueFromPipelineByPropertyName=$true)]
         [int64]$id=$(Get-SelectedVehicleId),
+        [Alias("pt")]
         [switch]$PassThru
     )
     Invoke-TeslaAPI -Method Post -Uri "api/1/vehicles/{0}/command/remote_steering_wheel_heater_request" -id $id -body @{on='false'} -PassThru:$PassThru
@@ -553,6 +585,7 @@ function Set-MediaPlayback
     param (
         [Parameter(Mandatory=$false, ValueFromPipelineByPropertyName=$true)]
         [int64]$id=$(Get-SelectedVehicleId),
+        [Alias("pt")]
         [switch]$PassThru
     )
     Invoke-TeslaAPI -Method Post -Uri "api/1/vehicles/{0}/command/media_toggle_playback" -id $id -PassThru:$PassThru
@@ -564,6 +597,7 @@ function Set-MediaNextTrack
     param (
         [Parameter(Mandatory=$false, ValueFromPipelineByPropertyName=$true)]
         [int64]$id=$(Get-SelectedVehicleId),
+        [Alias("pt")]
         [switch]$PassThru
     )
     Invoke-TeslaAPI -Method Post -Uri "api/1/vehicles/{0}/command/media_next_track" -id $id -PassThru:$PassThru
@@ -575,6 +609,7 @@ function Set-MediaPreviousTrack
     param (
         [Parameter(Mandatory=$false, ValueFromPipelineByPropertyName=$true)]
         [int64]$id=$(Get-SelectedVehicleId),
+        [Alias("pt")]
         [switch]$PassThru
     )
     Invoke-TeslaAPI -Method Post -Uri "api/1/vehicles/{0}/command/media_prev_track" -id $id -PassThru:$PassThru
@@ -586,6 +621,7 @@ function Set-MediaNextFavourite
     param (
         [Parameter(Mandatory=$false, ValueFromPipelineByPropertyName=$true)]
         [int64]$id=$(Get-SelectedVehicleId),
+        [Alias("pt")]
         [switch]$PassThru
     )
     Invoke-TeslaAPI -Method Post -Uri "api/1/vehicles/{0}/command/media_next_fav" -id $id -PassThru:$PassThru
@@ -597,6 +633,7 @@ function Set-MediaPrevousFavourite
     param (
         [Parameter(Mandatory=$false, ValueFromPipelineByPropertyName=$true)]
         [int64]$id=$(Get-SelectedVehicleId),
+        [Alias("pt")]
         [switch]$PassThru
     )
     Invoke-TeslaAPI -Method Post -Uri "api/1/vehicles/{0}/command/media_prev_fav" -id $id -PassThru:$PassThru
@@ -608,6 +645,7 @@ function Set-MediaVolumeUp
     param (
         [Parameter(Mandatory=$false, ValueFromPipelineByPropertyName=$true)]
         [int64]$id=$(Get-SelectedVehicleId),
+        [Alias("pt")]
         [switch]$PassThru
     )
     Invoke-TeslaAPI -Method Post -Uri "api/1/vehicles/{0}/command/media_volume_up" -id $id -PassThru:$PassThru
@@ -619,6 +657,7 @@ function Set-MediaVolumeDown
     param (
         [Parameter(Mandatory=$false, ValueFromPipelineByPropertyName=$true)]
         [int64]$id=$(Get-SelectedVehicleId),
+        [Alias("pt")]
         [switch]$PassThru
     )
     Invoke-TeslaAPI -Method Post -Uri "api/1/vehicles/{0}/command/media_volume_down" -id $id -PassThru:$PassThru
@@ -634,6 +673,7 @@ function Start-Share
         $locale="en-US",
         [Parameter(Mandatory=$false)]
         [string]$value,
+        [Alias("pt")]
         [switch]$PassThru
     )
 
@@ -645,7 +685,26 @@ function Start-Share
         value=@{'android.intent.extra.TEXT'=$value}
     } -PassThru:$PassThru
 }
+<#
+.SYNOPSIS
+Start software update
 
+.DESCRIPTION
+Start a software update which have been downloaded to the vehicle
+
+.PARAMETER id
+Id of the vehicle. (Defaults to the currently selected vehicle)
+
+.PARAMETER delayInSeconds
+The number of seconds to wait before starting the software update
+
+.PARAMETER PassThru
+The PassThru parameter will return the vehicle to the pipeline allowing more function to be called on this vehicle
+
+.EXAMPLE
+Start-SoftwareUpdate -delayInSeconds 120
+
+#>
 function Start-SoftwareUpdate
 {
     [CmdletBinding()]
@@ -654,22 +713,55 @@ function Start-SoftwareUpdate
         [int64]$id=$(Get-SelectedVehicleId),
         [Parameter(Mandatory=$false)]
         $delayInSeconds=30,
+        [Alias("pt")]
         [switch]$PassThru
     )
     Invoke-TeslaAPI -Method Post -Uri "api/1/vehicles/{0}/command/schedule_software_update" -id $id -body @{offset_sec=$delayInSeconds} -PassThru:$PassThru
 }
 
+<#
+.SYNOPSIS
+Stop a pending Software update
+
+.DESCRIPTION
+Stop pending software update. If the software update has already started, it cannot be stopped
+
+.PARAMETER id
+Id of the vehicle. (Defaults to the currently selected vehicle
+
+.PARAMETER PassThru
+PassThru parameter will return the vehicle to the pipeline, allowing more operations on the vehicle to be performed.
+
+#>
 function Stop-SoftwareUpdate
 {
     [CmdletBinding()]
     param (
         [Parameter(Mandatory=$false, ValueFromPipelineByPropertyName=$true)]
         [int64]$id=$(Get-SelectedVehicleId),
+        [Alias("pt")]
         [switch]$PassThru
     )
     Invoke-TeslaAPI -Method Post -Uri "api/1/vehicles/{0}/command/cancel_software_update" -id $id -PassThru:$PassThru
 }
 
+<#
+.SYNOPSIS
+Try to resolve optioncodes
+
+.DESCRIPTION
+Given a list of option codes, try to resolve to a more detailed explanatory string
+
+.PARAMETER optionCodes
+The list of option codes to resolve
+
+.EXAMPLE
+Resolve-OptionCodes -optionCodes "MDL3", "REEU" 
+
+.NOTES
+Can not be trusted 100% I have seen some rather bad resolves in this. I dont think that the option codes i have found is maintained in a proper fashion
+If you have information regarding this, please let me know
+#>
 function Resolve-OptionCodes 
 {
     param
@@ -769,6 +861,7 @@ function Invoke-TeslaAPI
         [string]$method="Get",
         [PSCustomObject]$AccessToken=$script:AccessToken,
         [Parameter(Mandatory=$false)]
+        [Alias("pt")]
         [switch]$PassThru,
         [Parameter(Mandatory=$false)]
         $body
