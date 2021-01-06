@@ -21,9 +21,10 @@ jobs:
   # This workflow contains a single job called "greet"
     deploy_to_psgallery:
       runs-on: ubuntu-latest
+      name: Publish Module to PowerShell Gallery
       steps:
-        name: Publish Module to PowerShell Gallery
-        uses: actions/checkout@v2, pcgeek86/publish-powershell-module-action@v19
+        uses: actions/checkout@v2
+        uses: pcgeek86/publish-powershell-module-action@v19
         id: publish-module
         with:
           modulePath: TeslaMatrix
