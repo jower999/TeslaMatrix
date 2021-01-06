@@ -23,8 +23,7 @@ jobs:
       runs-on: ubuntu-latest
       steps:
         name: Publish Module to PowerShell Gallery
-        - uses: pcgeek86/publish-powershell-module-action@v19
-        - uses: actions/checkout@v2
+        uses: actions/checkout@v2, pcgeek86/publish-powershell-module-action@v19
         id: publish-module
         with:
           modulePath: TeslaMatrix
