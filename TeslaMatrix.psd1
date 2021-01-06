@@ -12,7 +12,7 @@
 RootModule = 'TeslaMatrix.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.0.1'
+ModuleVersion = '0.9.1'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -21,13 +21,13 @@ ModuleVersion = '0.0.1'
 GUID = 'a067124a-4138-4efd-9c31-c84158e33619'
 
 # Author of this module
-Author = 'Jower'
+Author = 'John Petersen'
 
 # Company or vendor of this module
-CompanyName = 'Unknown'
+CompanyName = 'TeslaMatrix'
 
 # Copyright statement for this module
-Copyright = '(c) Jower. All rights reserved.'
+Copyright = '(c) John Petersen. All rights reserved.'
 
 # Description of the functionality provided by this module
 # Description = ''
