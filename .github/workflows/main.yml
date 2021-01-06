@@ -22,11 +22,13 @@ jobs:
     deploy_to_psgallery:
       runs-on: ubuntu-latest
       steps:
-      - name: Publish Module to PowerShell Gallery
-        uses: pcgeek86/publish-powershell-module-action@v19
-        uses: actions/checkout@v2
+        name: Publish Module to PowerShell Gallery
+        - uses: pcgeek86/publish-powershell-module-action@v19
+        - uses: actions/checkout@v2
         id: publish-module
         with:
           modulePath: TeslaMatrix
           NuGetApiKey: ${{ secrets.PS_GALLERY_KEY }} 
+    
+
       
