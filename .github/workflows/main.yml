@@ -22,11 +22,12 @@ jobs:
     deploy_to_psgallery:
       runs-on: ubuntu-latest
       steps:
-      name: Checkout source code
-      uses: actions/checkout@v2
-      with:
-        ref: main
-      name: Publish Module to PowerShell Gallery
+        name: Checkout source code
+        uses: actions/checkout@v2
+        with:
+          ref: main
+      steps:
+        name: Publish Module to PowerShell Gallery
         uses: pcgeek86/publish-powershell-module-action@v19
         id: publish-module
         with:
