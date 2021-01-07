@@ -429,7 +429,7 @@ function Stop-Charging
         [Alias("pt")]
         [switch]$PassThru
     )
-    Invoke-TeslaAPI -Method Post -Uri "api/1/vehicles/{0}/command/charge_start" -id $id  -PassThru:$PassThru
+    Invoke-TeslaAPI -Method Post -Uri "api/1/vehicles/{0}/command/charge_stop" -id $id  -PassThru:$PassThru
 }
 
 function Set-ChargeStandard
