@@ -178,7 +178,7 @@ function Invoke-HonkHorn
     [CmdletBinding()]
     param (
         [Parameter(Mandatory=$false, ValueFromPipelineByPropertyName=$true)]
-        [int64]$id=$(Get-SelectedVehicleId).
+        [int64]$id=$(Get-SelectedVehicleId),
         [Alias("pt")]
         [switch]$PassThru
     )
@@ -874,7 +874,10 @@ function Invoke-TeslaAPI
         Write-Verbose ("Sending JSon body with request '{0}'" -f (ConvertTo-Json $body))
         $result = Invoke-RestMethod -Method $method -Uri (GetRelativeUri $uri -id $id) -Headers $header -Body (ConvertTo-Json $body) -ContentType "application/json"
     }
-    if ($PassThru -and $null -ne $result.response -and $result.response.result -eq $true){
+    if ($null -ne $result.response -and $result.response.result -eq $false){
+        Write-Warning ("Result from operation was false and the reason was: {0}" -f $result.response.reason)
+    }
+    if ($PassThru){
         return Get-Vehicle -id $id
     }
     return $result.response
