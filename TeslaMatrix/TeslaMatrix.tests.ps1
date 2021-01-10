@@ -21,14 +21,20 @@ Describe Get-Vehicles {
             Get-Vehicles | Should -be $testcar
             Assert-MockCalled Invoke-RestMethod -Times 1
         }
-
-        It 'When having 2 cars in account, then return 2 cars' {
-            Mock Invoke-RestMethod {return new-object psobject -Property @{response=($testcar);count=1}}
-            Import-Module $PSScriptRoot\TeslaMatrix.psm1 -Force
-            Get-Vehicles | Should -be $testcars
-            Assert-MockCalled Invoke-RestMethod -Times 1
-        }
     }
+    Context "Get-2-Vehicles" {
+      BeforeEach {
+        Mock InitializeModule {}
+        Mock Get-Credential {return new-object pscredential -ArgumentList ("fakeuser", (ConvertTo-SecureString "fakepwd" -force -AsPlainText))}
+        Mock Get-AccessToken {return $null}
+      }
+      It 'When having 2 cars in account, then return 2 cars' {
+        Mock Invoke-RestMethod {return new-object psobject -Property @{response=($testcars);count=2}}
+        Import-Module $PSScriptRoot\TeslaMatrix.psm1 -Force
+        Get-Vehicles | Should -be $testcars
+        Assert-MockCalled Invoke-RestMethod -Times 1
+    }
+}
 }
 
 $testcar = @"                                                            
