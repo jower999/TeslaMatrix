@@ -12,7 +12,7 @@
 RootModule = 'TeslaMatrix.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.9.2'
+ModuleVersion = '0.9.3'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -183,7 +183,7 @@ PrivateData = @{
         # IconUri = ''
 
         # ReleaseNotes of this module
-        # ReleaseNotes = ''
+        ReleaseNotes = 'Added more documentation on the module methods. More to come in this area'
 
         # Prerelease string of this module
         # Prerelease = ''
