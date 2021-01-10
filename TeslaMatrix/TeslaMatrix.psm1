@@ -579,6 +579,19 @@ function Stop-SteeringWheelHeater
     Invoke-TeslaAPI -Method Post -Uri "api/1/vehicles/{0}/command/remote_steering_wheel_heater_request" -id $id -body @{on='false'} -PassThru:$PassThru
 }
 
+<#
+.SYNOPSIS
+Toggle playback
+
+.DESCRIPTION
+Toggle the media playback function. (If playing it will stop and if not it will start to play)
+
+.PARAMETER id
+Id of the vehicle (Defaults to the currently select vehicle)
+
+.PARAMETER PassThru
+Passthru flag will send the vehicle to pipeline so we can do more operations in one command
+#>
 function Set-MediaPlayback
 {
     [CmdletBinding()]
@@ -591,6 +604,19 @@ function Set-MediaPlayback
     Invoke-TeslaAPI -Method Post -Uri "api/1/vehicles/{0}/command/media_toggle_playback" -id $id -PassThru:$PassThru
 }
 
+<#
+.SYNOPSIS
+Skip to the next track
+
+.DESCRIPTION
+Skip to next media track
+
+.PARAMETER id
+Id of the vehicle (Defaults to the currently select vehicle)
+
+.PARAMETER PassThru
+Passthru flag will send the vehicle to pipeline so we can do more operations in one command
+#>
 function Set-MediaNextTrack
 {
     [CmdletBinding()]
@@ -603,6 +629,19 @@ function Set-MediaNextTrack
     Invoke-TeslaAPI -Method Post -Uri "api/1/vehicles/{0}/command/media_next_track" -id $id -PassThru:$PassThru
 }
 
+<#
+.SYNOPSIS
+Skip to the previous track
+
+.DESCRIPTION
+Skip to previous media track
+
+.PARAMETER id
+Id of the vehicle (Defaults to the currently select vehicle)
+
+.PARAMETER PassThru
+Passthru flag will send the vehicle to pipeline so we can do more operations in one command
+#>
 function Set-MediaPreviousTrack
 {
     [CmdletBinding()]
@@ -615,6 +654,19 @@ function Set-MediaPreviousTrack
     Invoke-TeslaAPI -Method Post -Uri "api/1/vehicles/{0}/command/media_prev_track" -id $id -PassThru:$PassThru
 }
 
+<#
+.SYNOPSIS
+Skip to the next favourite track
+
+.DESCRIPTION
+Skip to next favourite
+
+.PARAMETER id
+Id of the vehicle (Defaults to the currently select vehicle)
+
+.PARAMETER PassThru
+Passthru flag will send the vehicle to pipeline so we can do more operations in one command
+#>
 function Set-MediaNextFavourite
 {
     [CmdletBinding()]
@@ -627,6 +679,19 @@ function Set-MediaNextFavourite
     Invoke-TeslaAPI -Method Post -Uri "api/1/vehicles/{0}/command/media_next_fav" -id $id -PassThru:$PassThru
 }
 
+<#
+.SYNOPSIS
+Skip to the previous favourite track
+
+.DESCRIPTION
+Skip to previous favourite
+
+.PARAMETER id
+Id of the vehicle (Defaults to the currently select vehicle)
+
+.PARAMETER PassThru
+Passthru flag will send the vehicle to pipeline so we can do more operations in one command
+#>
 function Set-MediaPrevousFavourite
 {
     [CmdletBinding()]
@@ -639,6 +704,19 @@ function Set-MediaPrevousFavourite
     Invoke-TeslaAPI -Method Post -Uri "api/1/vehicles/{0}/command/media_prev_fav" -id $id -PassThru:$PassThru
 }
 
+<#
+.SYNOPSIS
+Turn the volume up
+
+.DESCRIPTION
+Turn up the volume one notch  
+
+.PARAMETER id
+Id of the vehicle (Defaults to the currently select vehicle)
+
+.PARAMETER PassThru
+Passthru flag will send the vehicle to pipeline so we can do more operations in one command
+#>
 function Set-MediaVolumeUp
 {
     [CmdletBinding()]
@@ -651,6 +729,20 @@ function Set-MediaVolumeUp
     Invoke-TeslaAPI -Method Post -Uri "api/1/vehicles/{0}/command/media_volume_up" -id $id -PassThru:$PassThru
 }
 
+<#
+.SYNOPSIS
+Turn the volume down
+
+.DESCRIPTION
+Turn down the volume one notch  
+
+.PARAMETER id
+Id of the vehicle (Defaults to the currently select vehicle)
+
+.PARAMETER PassThru
+Passthru flag will send the vehicle to pipeline so we can do more operations in one command
+
+#>
 function Set-MediaVolumeDown
 {
     [CmdletBinding()]
