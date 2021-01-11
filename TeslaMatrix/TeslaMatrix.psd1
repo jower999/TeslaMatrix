@@ -12,7 +12,7 @@
 RootModule = 'TeslaMatrix.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.9.3'
+ModuleVersion = '0.9.4'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -31,8 +31,11 @@ Copyright = '(c) John Petersen. All rights reserved.'
 
 # Description of the functionality provided by this module
 Description = @'
-TeslaMatrix powershell module is based on the unofficial documentation of the tesla API
-The documentation can be found on https://tesla-api.timdorr.com
+TeslaMatrix is a powershell module for managing your Tesla car from the command line.
+
+If you are about to order a new tesla car, please consider using my referral code. 
+For that you (and I) will get 1000 miles / 1500 km of free super charging and you will have a chance to win a Model Y (one time per month) and a Roadster (once every 3 months)
+Click this link https://ts.la/john53080 or use the method Get-FreeSuperCharging inside the module.
 
 How to use:
 Import the module is done just by typing Import-Module TeslaMatrix 
@@ -42,9 +45,11 @@ Import-Module TeslaMatrix -argumentlist @{Credential=$cred}
 You can also, if preferred, only send your tesla refresh token to the module. The module will ask the tesla API for a new token based on that.
 Import-Module TeslaMatrix -argumentlist @{RefreshToken="1234567890"}
 
-If you are about to order a new tesla car, please consider using my referral code. 
-For that you will get 1000 miles / 1500 km of free super charging and you will have a chance to win a Model Y (one time per month) and a Roadster (once every 3 months)
-Click this link https://ts.la/john53080 or use the method Get-FreeSuperCharging inside the module.
+Sourcecode can be found on github (https://github.com/jower999/TeslaMatrix).
+You are most welcome to contribute by forking the code and sending me a pull-request.
+
+TeslaMatrix powershell module is based on the unofficial documentation of the tesla API
+The documentation can be found on https://tesla-api.timdorr.com
 '@
 
 # Minimum version of the PowerShell engine required by this module
@@ -183,7 +188,7 @@ PrivateData = @{
         # IconUri = ''
 
         # ReleaseNotes of this module
-        ReleaseNotes = 'Added more documentation on the module methods. More to come in this area'
+        ReleaseNotes = 'Restructured and updated readme file. '
 
         # Prerelease string of this module
         # Prerelease = ''
