@@ -884,11 +884,17 @@ function Select-Vehicle
 {
     param 
     (
-        [Parameter(Mandatory=$true, ValueFromPipelineByPropertyName=$true)]
-        [Int64]$id
+        [Parameter(Mandatory=$true, ValueFromPipelineByPropertyName=$true, ParameterSetName="ById")]
+        [Int64]$id,
+        [Parameter(Mandatory=$true, ValueFromPipelineByPropertyName=$true, ParameterSetName="ByName")]
+        [string]$name
     )
-
-    $script:selectedId = $id
+    if ($PSCmdlet.ParameterSetName -eq "ByName"){
+        Get-Vehicles | Where-Object name -eq $name | ForEach-Object {Select-Vehicle -id $_.id}
+    }
+    else {
+        $script:selectedId = $id
+    }
 }
 
 #endregion Public methods
