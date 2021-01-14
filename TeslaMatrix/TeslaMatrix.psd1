@@ -12,7 +12,7 @@
 RootModule = 'TeslaMatrix.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.9.4'
+ModuleVersion = '0.9.5'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -97,6 +97,7 @@ FunctionsToExport = @(
     'ConvertTo-Kilometers',
     'Disable-SentryMode',
     'Disable-SpeedLimit',
+    'Disable-ValetMode',
     'Enable-SentryMode',
     'Enable-SpeedLimit',
     'Enable-ValetMode',
@@ -188,7 +189,7 @@ PrivateData = @{
         # IconUri = ''
 
         # ReleaseNotes of this module
-        ReleaseNotes = 'Restructured and updated readme file. '
+        ReleaseNotes = 'Exported Disable-ValetMode function and Allows for Select-Vehicle to be called with name of the vehicle as well as the id'
 
         # Prerelease string of this module
         # Prerelease = ''
