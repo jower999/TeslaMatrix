@@ -12,7 +12,7 @@
 RootModule = 'TeslaMatrix.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.9.6'
+ModuleVersion = '0.9.7'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -35,7 +35,11 @@ TeslaMatrix is a powershell module for managing your Tesla car from the command 
 
 If you are about to order a new tesla car, please consider using my referral code. 
 For that you (and I) will get 1000 miles / 1500 km of free super charging and you will have a chance to win a Model Y (one time per month) and a Roadster (once every 3 months)
-Click this link https://ts.la/john53080 or use the method Get-FreeSuperCharging inside the module.
+Click this link https://ts.la/john53080 or use the method Get-FreeSuperCharging in the module.
+
+How to get:
+The module is automatically pushed to the Powershell gallery https://www.powershellgallery.com/packages/TeslaMatrix
+To install it on your system, just simply type Install-Module TeslaMatrix -scope CurrentUser
 
 How to use:
 Import the module is done just by typing Import-Module TeslaMatrix 

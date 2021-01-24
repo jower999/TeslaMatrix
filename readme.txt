@@ -4,6 +4,10 @@ If you are about to order a new tesla car, please consider using my referral cod
 For that you (and I) will get 1000 miles / 1500 km of free super charging and you will have a chance to win a Model Y (one time per month) and a Roadster (once every 3 months)
 Click this link https://ts.la/john53080 or use the method Get-FreeSuperCharging inside the module.
 
+How to get:
+The module is automatically pushed to the Powershell gallery https://www.powershellgallery.com/packages/TeslaMatrix
+To install it on your system, just simply type Install-Module TeslaMatrix -scope CurrentUser
+
 How to use:
 Import the module is done just by typing Import-Module TeslaMatrix 
 During Import the module will ask for your tesla credentials.
