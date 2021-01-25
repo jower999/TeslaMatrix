@@ -12,7 +12,7 @@
 RootModule = 'TeslaMatrix.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.9.7'
+ModuleVersion = '0.9.8'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -209,7 +209,7 @@ PrivateData = @{
         # IconUri = ''
 
         # ReleaseNotes of this module
-        ReleaseNotes = 'Put some more details in the description and readme.txt file'
+        ReleaseNotes = 'Fixed a bug in Set-ChargeLimit, where the percent parameter was not sent properly'
 
         # Prerelease string of this module
         # Prerelease = ''

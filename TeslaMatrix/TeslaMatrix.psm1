@@ -467,7 +467,7 @@ function Set-ChargeLimit
         [Alias("pt")]
         [switch]$PassThru
     )
-    Invoke-TeslaAPI -Method Post -Uri "api/1/vehicles/{0}/command/set_charge_limit" -id $id -body $[percent=$percent] -PassThru:$PassThru
+    Invoke-TeslaAPI -Method Post -Uri "api/1/vehicles/{0}/command/set_charge_limit" -id $id -body ${percent=$percent} -PassThru:$PassThru
 }
 
 function Start-AutoConditioning
