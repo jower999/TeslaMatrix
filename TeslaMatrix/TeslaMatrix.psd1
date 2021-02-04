@@ -12,7 +12,7 @@
 RootModule = 'TeslaMatrix.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.9.9'
+ModuleVersion = '0.9.95'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -189,7 +189,7 @@ AliasesToExport = @()
 # ModuleList = @()
 
 # List of all files packaged with this module
-FileList = @('TeslaMatrix.psd1', 'TeslaMatrix.psm1', 'OptionCodes.ps1', 'optioncode.csv')
+FileList = @('TeslaMatrix.psd1', 'TeslaMatrix.psm1', 'OptionCodes.ps1', 'optioncode.csv', 'bin/netstandard2.1/TeslaMatrix.TeslaLogin.dll')
 
 # Private data to pass to the module specified in RootModule/ModuleToProcess. This may also contain a PSData hashtable with additional module metadata used by PowerShell.
 PrivateData = @{

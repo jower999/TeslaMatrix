@@ -1,32 +1,44 @@
 # Module for tesla api integration
 
+function Get-SHA256 {
+    param (
+        [string]$instring
+    )
+
+    $returnstring = ""
+    new-object System.Security.Cryptography.SHA256Managed | ForEach-Object {$_.ComputeHash([System.Text.Encoding]::UTF8.GetBytes("The string to hash goes here"))} | ForEach-Object {$returnstring += $_.ToString("x2")}
+    return $returnstring
+}
+
+function ConvertTo-UrlEncodedString 
+{
+    param
+    (
+        [Parameter(Mandatory=$true)]
+        [Hashtable]$sourceHashtable
+    )
+    $result = @()
+    foreach ($qs in $sourceHashtable.GetEnumerator())
+    {
+        $qs_key = [System.Web.HttpUtility]::UrlEncode($qs.Name)
+        $qs_value = [System.Web.HttpUtility]::UrlEncode($qs.Value)
+        $result += ("${qs_key}=${qs_value}")
+    }
+
+    return [string]::Join('&', $result)
+
+}
+
 #region login methods
 function Get-AccessToken
 {
     if ($null -ne $script:credential)
     {
-        $body = @{
-            email=$script:Credential.Username
-            password=$script:Credential.GetNetworkCredential().Password
-            client_secret=$script:client_secret
-            client_id=$script:client_id
-            grant_type="password"
-        } | ConvertTo-Json
+        Import-Module $PSScriptRoot/bin/netstandard2.1/TeslaMatrix.Teslalogin.dll
+        $teslatokens = Get-TeslaAccessToken -Credential $script:credential
+        return $teslatokens
     }
-    else
-    {
-        if ($null -eq $script:refreshtoken -or "" -eq $script:refreshtoken)
-        {
-            throw "Error initializing with no refresh token or credentials"
-        }
-        $body = @{
-            refresh_token=$script:refreshtoken
-            client_secret=$script:client_secret
-            client_id=$script:client_id
-            grant_type="refresh_token"
-        } | ConvertTo-Json
-    }
-    Invoke-RestMethod -Method Post -Uri (GetRelativeUri "oauth/token") -ContentType "application/json" -Body $body
+    throw "Missing credentials"    
 }
 
 function Revoke-AccessToken
@@ -39,11 +51,10 @@ function Revoke-AccessToken
 
 function Get-LoginDetails
 {
-    $script:AccessToken | Select-Object access_token, 
-        token_type, 
-        refresh_token, 
-        @{Name="Created";Expression={[System.DateTimeOffset]::FromUnixTimeSeconds($_.created_at).DateTime}}, 
-        @{Name="Expiry";Expression={[System.DateTimeOffset]::FromUnixTimeSeconds($_.created_at).AddSeconds($_.expires_in).DateTime}}
+    $script:AccessToken | Select-Object @{Name="access_token";Expression={$_.access_token}}, 
+       @{Name="refresh_token";Expression={$_.refresh_token}}, 
+       @{Name="Created";Expression={[System.DateTimeOffset]::FromUnixTimeSeconds($_.created_at).DateTime}}, 
+       @{Name="Expiry";Expression={[System.DateTimeOffset]::FromUnixTimeSeconds($_.created_at).AddSeconds($_.expires_in).DateTime}}
 }
 #endregion login methods
 
@@ -965,7 +976,14 @@ function Invoke-TeslaAPI
         $body
     )
     $header = @{Authorization=("Bearer {0}" -f $AccessToken.access_token)}
-    if ($null -eq $body){
+    #$vehicle = Get-Vehicle -id $id
+<#     if ($vehicle.state -eq "aSleep"){
+        Invoke-Wakeup -id $id
+        while ((get-vehicle -id $id | Select-Object -expandProperty state) -eq "aSleep"){
+            sleep -seconds 1
+        }
+    }
+ #>    if ($null -eq $body){
         $result = Invoke-RestMethod -Method $method -Uri (GetRelativeUri $uri -id $id) -Headers $header
     }
     else {
