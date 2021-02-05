@@ -1,34 +1,5 @@
 # Module for tesla api integration
 
-function Get-SHA256 {
-    param (
-        [string]$instring
-    )
-
-    $returnstring = ""
-    new-object System.Security.Cryptography.SHA256Managed | ForEach-Object {$_.ComputeHash([System.Text.Encoding]::UTF8.GetBytes("The string to hash goes here"))} | ForEach-Object {$returnstring += $_.ToString("x2")}
-    return $returnstring
-}
-
-function ConvertTo-UrlEncodedString 
-{
-    param
-    (
-        [Parameter(Mandatory=$true)]
-        [Hashtable]$sourceHashtable
-    )
-    $result = @()
-    foreach ($qs in $sourceHashtable.GetEnumerator())
-    {
-        $qs_key = [System.Web.HttpUtility]::UrlEncode($qs.Name)
-        $qs_value = [System.Web.HttpUtility]::UrlEncode($qs.Value)
-        $result += ("${qs_key}=${qs_value}")
-    }
-
-    return [string]::Join('&', $result)
-
-}
-
 #region login methods
 function Get-AccessToken
 {
@@ -36,6 +7,12 @@ function Get-AccessToken
     {
         Import-Module $PSScriptRoot/bin/netstandard2.1/TeslaMatrix.Teslalogin.dll
         $teslatokens = Get-TeslaAccessToken -Credential $script:credential
+        return $teslatokens
+    }
+    if ($null -ne $script:refreshtoken)
+    {
+        Import-Module $PSScriptRoot/bin/netstandard2.1/TeslaMatrix.Teslalogin.dll
+        $teslatokens = Get-TeslaAccessToken -RefreshToken $script:refreshtoken
         return $teslatokens
     }
     throw "Missing credentials"    
@@ -51,6 +28,7 @@ function Revoke-AccessToken
 
 function Get-LoginDetails
 {
+
     $script:AccessToken | Select-Object @{Name="access_token";Expression={$_.access_token}}, 
        @{Name="refresh_token";Expression={$_.refresh_token}}, 
        @{Name="Created";Expression={[System.DateTimeOffset]::FromUnixTimeSeconds($_.created_at).DateTime}}, 
@@ -63,7 +41,7 @@ function Get-Vehicles
 {
     [CmdletBinding()]
     param ()
-    $vehic = Invoke-TeslaAPI -Method Get -Uri "api/1/vehicles"
+    $vehic = Invoke-TeslaAPI -Method Get -Uri "api/1/vehicles" -dontWakeUp
 
     return $vehic
 }
@@ -75,7 +53,7 @@ function Get-Vehicle
         [Parameter(Mandatory=$true)]
         [int64]$id
     )
-    $vehic = Invoke-TeslaAPI -Method Get -Uri "api/1/vehicles/{0}" -id $id 
+    $vehic = Invoke-TeslaAPI -Method Get -Uri "api/1/vehicles/{0}" -id $id -dontWakeUp 
 
     return $vehic
 
@@ -181,7 +159,7 @@ function Invoke-Wakeup
         [Alias("pt")]
         [switch]$PassThru
     )
-    Invoke-TeslaAPI -Method Post -Uri "api/1/vehicles/{0}/wake_up" -id $id -PassThru:$PassThru
+    Invoke-TeslaAPI -Method Post -Uri "api/1/vehicles/{0}/wake_up" -id $id -PassThru:$PassThru -dontWakeUp
 }
 
 function Invoke-HonkHorn
@@ -972,18 +950,22 @@ function Invoke-TeslaAPI
         [Parameter(Mandatory=$false)]
         [Alias("pt")]
         [switch]$PassThru,
+        [switch]$dontWakeUp,
         [Parameter(Mandatory=$false)]
         $body
     )
     $header = @{Authorization=("Bearer {0}" -f $AccessToken.access_token)}
-    #$vehicle = Get-Vehicle -id $id
-<#     if ($vehicle.state -eq "aSleep"){
-        Invoke-Wakeup -id $id
-        while ((get-vehicle -id $id | Select-Object -expandProperty state) -eq "aSleep"){
-            sleep -seconds 1
-        }
+    if (!$dontWakeUp)
+    {
+        $vehicle = Get-Vehicle -id $id
+        if ($vehicle.state -eq "aSleep"){
+           Invoke-Wakeup -id $id
+           while ((get-vehicle -id $id | Select-Object -expandProperty state) -eq "aSleep"){
+               Start-Sleep -seconds 1
+           }
+       }
     }
- #>    if ($null -eq $body){
+    if ($null -eq $body){
         $result = Invoke-RestMethod -Method $method -Uri (GetRelativeUri $uri -id $id) -Headers $header
     }
     else {
@@ -1031,8 +1013,6 @@ function InitializeModule
     )
     $script:credential = $Credential
     $script:refreshtoken = $RefreshToken
-    $script:client_secret="c7257eb71a564034f9419ee651c7d0e5f7aa6bfbd18bafb5c5c033b093bb2fa3"
-    $script:client_id="81527cff06843c8634fdc09e8ac0abefb46ac849f38fe1e431c2ef2106796384"
     $script:baseUri = "https://owner-api.teslamotors.com"
     $script:conversionFactor = 1.609344
     $script:HeaterNames = @{Driver=0;Passenger=1;'Rear left'=2;'Rear center'=4;'Rear right'=5}
