@@ -12,7 +12,7 @@
 RootModule = 'TeslaMatrix.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.9.97'
+ModuleVersion = '0.9.98'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -209,7 +209,7 @@ PrivateData = @{
         # IconUri = ''
 
         # ReleaseNotes of this module
-        ReleaseNotes = 'Fixed remaining issue with refresh. Now all working again'
+        ReleaseNotes = 'Remove unneeded Http status code output'
 
         # Prerelease string of this module
         # Prerelease = ''
